@@ -43,12 +43,6 @@ Ensure the drone is equipped with GPS, a camera, and obstacle sensors.
 
 Load the navigation control software onto the onboard processor.
 
-Software Installation:
-
-git clone https://github.com/your-repo/autonomous-drone-navigation.git
-cd autonomous-drone-navigation
-pip install -r requirements.txt
-
 Launch the Navigation System:
 
 Start the autonomous navigation module:
