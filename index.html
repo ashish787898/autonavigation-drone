@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Drone Delivery App</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css" rel="stylesheet" />
+        <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+        <link href="/static/styles.css" rel="stylesheet"/>
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                font-family: 'Arial', sans-serif;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+                background: linear-gradient(270deg, #00c6ff, #0072ff, #00c6ff);
+                background-size: 600% 600%;
+                animation: gradientAnimation 10s ease infinite;
+                color: white;
+            }
+
+            @keyframes gradientAnimation {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+
+            .container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                animation: fadeIn 2s ease-in-out;
+            }
+
+            .header, .footer, .jumbotron {
+                background: rgba(0, 0, 0, 0.5);  /* Semi-transparent backgrounds */
+                color: white;
+                border-radius: 10px;
+            }
+
+            .header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                padding: 15px;
+                border-bottom: 1px solid #e5e5e5;
+                animation: slideDown 1s ease-in-out;
+            }
+
+            .header h3 {
+                margin: 0;
+                line-height: 40px;
+            }
+
+            .nav > li > a {
+                color: white !important;
+            }
+
+            .jumbotron {
+                text-align: center;
+                margin: 100px 0 20px; /* Adjusted to account for fixed header */
+                padding: 20px;
+                animation: zoomIn 1.5s ease-in-out;
+            }
+
+            .jumbotron .btn {
+                padding: 14px 24px;
+                font-size: 21px;
+                margin: 10px;
+                transition: background-color 0.3s, transform 0.3s;
+                border-radius: 5px;
+            }
+
+            .jumbotron .btn:hover {
+                transform: scale(1.1);
+                
+            }
+
+            .footer {
+                margin-top: auto;
+                border-top: 1px solid #e5e5e5;
+                text-align: center;
+                color: #ddd;
+                padding: 15px;
+                animation: fadeInUp 1.5s ease-in-out;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+
+            @keyframes slideDown {
+                from { transform: translateY(-100%); }
+                to { transform: translateY(0); }
+            }
+
+            @keyframes zoomIn {
+                from { transform: scale(0.8); opacity: 0; }
+                to { transform: scale(1); opacity: 1; }
+            }
+
+            @keyframes fadeInUp {
+                from { transform: translateY(20px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+
+            @media (min-width: 768px) {
+                .container {
+                    max-width: 730px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class='header'>
+            <nav class="nav nav-pills pull-right">
+                <li class="active"><a href="index.html">Home</a></li>
+                <li><a href="track.html">Track</a></li>
+                <li><a href="command.html">Command</a></li>
+            </nav>
+            <h3 class='text-muted'>SKYWORKS</h3>
+        </div>
+
+        <div class='container'>
+            <div class='jumbotron'>
+                <h1>Drone Delivery App</h1>
+                <p class='lead'>Track and Command a drone to deliver packages from a web app.</p>
+                <p>
+                    <a class='btn btn-lg btn-success' href='track.html'>Track</a>
+                    <a class='btn btn-lg btn-info' href='command.html'>Command</a>
+                </p>
+            </div>
+        </div>
+
+        <footer class='footer'>
+            <p>&copy; SKYWORKS</p>
+        </footer>
+
+        <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+        <script>
+            $(document).ready(function() {
+                console.log("Drone Delivery App is ready!");
+            });
+        </script>
+    </body>
+</html>

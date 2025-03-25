@@ -1,0 +1,290 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Track Drone - Drone Delivery App</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+    <link href="/static/styles.css" rel="stylesheet"/>
+
+    <!-- Custom Styles -->
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(-45deg, #1e3c72, #2a5298, #00aaff, #70e1f5);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            font-family: 'Arial', sans-serif;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 0;
+            margin-bottom: 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.3s ease;
+        }
+
+        .navbar:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .navbar-brand, .navbar-nav li a {
+            color: #fff !important;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav li a:hover, .navbar-nav li.active a {
+            color: #1e3c72 !important;
+            background-color: rgba(255, 255, 255, 0.7) !important;
+            border-radius: 4px;
+        }
+
+        /* Main Content Styling */
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin-top: 70px;  /* Space for fixed navbar */
+            margin-bottom: 70px; /* Space for footer */
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .jumbotron {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 1000px;
+            transition: transform 0.3s ease;
+        }
+
+        .jumbotron:hover {
+            transform: scale(1.02);
+        }
+
+        .jumbotron h1 {
+            font-size: 36px;
+            color: #1e3c72;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+        }
+
+        .lead {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        /* Larger Map Styling */
+        #staticMap img {
+            width: 100%;
+            height: 450px;  /* Increased height for better visibility */
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #staticMap img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        /* Enhanced Form Styling */
+        .form-inline {
+            margin-top: 25px;
+        }
+
+        .form-inline .form-control {
+            margin: 10px;
+            border-radius: 8px;
+            border: 2px solid #007BFF;
+            padding: 12px;
+            font-size: 16px;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .form-inline .form-control:focus {
+            border-color: #00C6FF;
+            box-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
+        }
+
+        .btn-default {
+            background: linear-gradient(90deg, #007BFF, #00C6FF);
+            color: #fff;
+            border: none;
+            padding: 12px 35px;
+            font-size: 18px;
+            border-radius: 30px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-default:hover {
+            background: linear-gradient(90deg, #0056b3, #008cff);
+            transform: translateY(-3px);
+        }
+
+        /* Footer Styling */
+        .footer {
+            width: 100%;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 15px 0;
+            box-shadow: 0 -4px 6px rgba(0,0,0,0.1);
+            font-weight: bold;
+            color: #333;
+            margin-top: auto;  /* Ensures footer stays at the bottom */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .jumbotron h1 {
+                font-size: 28px;
+            }
+
+            .lead {
+                font-size: 16px;
+            }
+
+            #staticMap img {
+                height: 300px;
+            }
+
+            .btn-default {
+                padding: 10px 25px;
+                font-size: 16px;
+            }
+
+            .form-inline .form-control {
+                width: 150px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+
+        <!-- Navbar at the Top -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">SKYWORKS</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active"><a href="track.html">Track</a></li>
+                    <li><a href="command.html">Command</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content Centered -->
+        <div class="content">
+            <div class='jumbotron'>
+                <h1>Track Your Drone</h1>
+                <p class='lead'>Monitor your drone’s real-time location and status from here.</p>
+
+                <!-- Larger Static Map -->
+                <div id='staticMap' class='col-lg-12'>
+                    <img src="{{ mapbox.static_map_with_marker(options, options.current_coords, options.current_coords) }}" 
+                         alt="Drone Location">
+                </div>
+
+                <!-- Coordinates Form -->
+                <form class="form-inline">
+                    <div class='form-group'>
+                        <input disabled class='form-control' type="text" name="lat" id="lat" placeholder="Latitude" value="{{ options.current_coords[0] }}" />
+                    </div>
+                    <div class='form-group'>
+                        <input disabled class='form-control' type="text" name="lon" id="lon" placeholder="Longitude" value="{{ options.current_coords[1] }}" />
+                    </div>
+                    <button id='refresh-vehicle' class='btn btn-default'>Update</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer at the Bottom -->
+        <footer class='footer'>
+            <p>&copy; 2025 SKYWORKS - All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <!-- jQuery for Updates -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        (function($){
+            var fixCoords = function(current_coords){
+                return current_coords.map(coord => parseFloat(coord).toFixed(6));
+            };
+
+            var mapboxStatic = function(current_coords, options){
+                var markers = markerString(current_coords);
+                return 'http://api.tiles.mapbox.com/v4/' +
+                    options.mapid + '/' +
+                    markers + '/' +
+                    current_coords.join(',') + ',' +
+                    options.zoom + '/' +
+                    options.width + 'x' + options.height + '.png' +
+                    '?access_token=' + options.access_token;
+            };
+
+            var markerString = function(current_coords){
+                return 'pin-m-heliport+f86767(' + current_coords.reverse().join(',') + ')';
+            };
+
+            var options = JSON.parse('{{ options.json }}');
+            options.home_coords.reverse();
+            options.current_coords = fixCoords(options.current_coords);
+
+            $('#refresh-vehicle').on('click', function(event){
+                event.preventDefault();
+                $.getJSON('/vehicle', function(data){
+                    $('#staticMap img').prop('src', mapboxStatic(fixCoords(data.position), options));
+                    $('#lat').val(data.position[0]);
+                    $('#lon').val(data.position[1]);
+                });
+            });
+        }(jQuery));
+    </script>
+</body>
+</html>

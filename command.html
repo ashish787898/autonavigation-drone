@@ -1,0 +1,225 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Drone Delivery App</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+
+    <!-- Custom Styles -->
+    <style>
+        /* Global Reset */
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: linear-gradient(90deg, #007BFF, #00C6FF);
+            padding: 15px 20px;
+            border: none;
+            border-radius: 0;
+            margin-bottom: 0;
+        }
+
+        .navbar .nav-pills > li > a {
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+        }
+
+        .navbar .nav-pills > li > a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .navbar-brand {
+            color: #fff !important;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .header h3 {
+            color: #007BFF;
+            font-size: 28px;
+            margin: 0;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center vertically */
+            align-items: center; /* Center horizontally */
+            text-align: center;
+            padding: 20px;
+        }
+
+        #map {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Styling */
+        .form-inline .form-control {
+            width: 150px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #007BFF;
+            transition: all 0.3s ease;
+        }
+
+        .form-inline .form-control:focus {
+            border-color: #00C6FF;
+            box-shadow: 0 0 8px rgba(0, 198, 255, 0.5);
+        }
+
+        .btn-default {
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-default:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 15px 0;
+            background: #007BFF;
+            color: #fff;
+            border-top: 3px solid #0056b3;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .form-inline .form-control {
+                width: 100px;
+            }
+
+            #map {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">SKYWORKS</a>
+            </div>
+           
+            <nav class="nav nav-pills pull-right">
+                <li class="active"><a href="index.html">Home</a></li>
+                <li><a href="track.html">Track</a></li>
+                <li><a href="command.html">Command</a></li>
+            </nav>
+           
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h3>Track Your Drone in Real-Time</h3>
+    </div>
+
+    <!-- Main Content Centered -->
+    <div class="main-content">
+        <div id="map"></div>
+        <form class="form-inline" action="/track" method="POST">
+            <input class="form-control" type="text" name="lat" id="lat" placeholder="Latitude" />
+            <input class="form-control" type="text" name="lon" id="lon" placeholder="Longitude" />
+            <button type="submit" class="btn btn-default">Track Drone</button>
+        </form>
+    </div>
+
+    <!-- Footer at the Bottom -->
+    <footer class="footer">
+        <p>&copy; 2025 SKYWORKS - All Rights Reserved</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+
+    <!-- Mapbox Script -->
+    <script type="text/javascript">
+        L.mapbox.accessToken = '{{options.access_token}}';
+        var currentCoords = [{{ options.current_coords[0] }}, {{ options.current_coords[1] }}];
+        var homeCoords = [{{ options.home_coords[0] }}, {{ options.home_coords[1] }}];
+
+        var map = L.mapbox.map('map', '{{options.mapid}}');
+
+        // Home Marker
+        var homeMarker = L.marker(homeCoords, {
+            icon: L.mapbox.marker.icon({
+                'marker-size': 'small',
+                'marker-symbol': 'building',
+                'marker-color': '#fa0'
+            })
+        }).addTo(map);
+
+        // Vehicle Marker
+        var vehicleMarker = L.marker(currentCoords, {
+            icon: L.mapbox.marker.icon({
+                'marker-size': 'large',
+                'marker-symbol': 'heliport',
+                'marker-color': '#fa0'
+            })
+        }).addTo(map);
+
+        // User Marker
+        var userMarker = L.marker([0, 0], {
+            icon: L.mapbox.marker.icon({
+                'marker-color': '#f86767'
+            }),
+            draggable: true
+        }).addTo(map);
+
+        map.setView(homeCoords, {{ options.zoom }});
+
+        map.on('click', function(event) {
+            userMarker.setLatLng(event.latlng);
+            $('#lat').val(event.latlng.lat);
+            $('#lon').val(event.latlng.lng);
+        });
+    </script>
+
+</body>
+</html>
