@@ -7,12 +7,6 @@
 [![OS X Build Status](https://img.shields.io/travis/dronekit/dronekit-python/master.svg?label=os%20x)](https://travis-ci.org/dronekit/dronekit-python)
 [![Linux Build Status](https://img.shields.io/circleci/project/dronekit/dronekit-python/master.svg?label=linux)](https://circleci.com/gh/dronekit/dronekit-python) <a href="https://gitter.im/dronekit/dronekit-python?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img align="right" src="https://badges.gitter.im/Join%20Chat.svg"></img></a>
 
-DroneKit-Python helps you create powerful apps for UAVs.
-
-# ⚠️ ATTENTION: MAINTAINERS NEEDED ⚠️
-
-Hey it's true this project is not very active, but it could be with your help. We are looking for maintainers interested in keeping the project alive by keep up with CI and PRs. If you are interested in helping please apply by [creating an issue]([url](https://github.com/dronekit/dronekit-python/issues/new)) and listing the reasons why you would like to help, in return we will be granting committer access to folks who are truly interested in helping.
-
 
 ## Overview
 
