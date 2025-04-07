@@ -56,6 +56,8 @@ We'd love your [feedback and suggestions](https://github.com/dronekit/dronekit-p
 If you've created some awesome software that uses this project, [let us know on the forums here](https://discuss.dronekit.io/t/notable-projects-using-dronekit/230)!
 
 If you want to contribute, see our [Contributing](https://dronekit-python.readthedocs.io/en/latest/contributing/index.html) guidelines, we welcome all types of contributions but mostly contributions that would help us shrink our [issues list](https://github.com/dronekit/dronekit-python/issues).
+![image](https://github.com/user-attachments/assets/ad262cfc-d3c4-41fe-8e7b-5441929d84ef)
+
 
 
 ## Licence
