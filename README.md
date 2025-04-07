@@ -61,7 +61,7 @@ If you want to contribute, see our [Contributing](https://dronekit-python.readth
 ## Licence
 
 DroneKit-Python is made available under the permissive open source [Apache 2.0 License](http://python.dronekit.io/about/license.html). 
-![WhatsApp Image 2025-04-07 at 23 58 54_9ffa7528](https://github.com/user-attachments/assets/f4388a04-358d-4556-9ecc-ea7535c3e637)
+
 
 
 
