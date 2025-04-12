@@ -56,14 +56,23 @@ We'd love your [feedback and suggestions](https://github.com/dronekit/dronekit-p
 If you've created some awesome software that uses this project, [let us know on the forums here](https://discuss.dronekit.io/t/notable-projects-using-dronekit/230)!
 
 If you want to contribute, see our [Contributing](https://dronekit-python.readthedocs.io/en/latest/contributing/index.html) guidelines, we welcome all types of contributions but mostly contributions that would help us shrink our [issues list](https://github.com/dronekit/dronekit-python/issues).
-![image](https://github.com/user-attachments/assets/ad262cfc-d3c4-41fe-8e7b-5441929d84ef)
+
+  ![image](https://github.com/user-attachments/assets/ad262cfc-d3c4-41fe-8e7b-5441929d84ef)
+ 
+ website for the autonaigation:
+ 
+  ![image](https://github.com/user-attachments/assets/b0edc97c-aae3-494d-b154-e3294e7012fd)
+
+
+  ![image](https://github.com/user-attachments/assets/cb849c2e-af1b-4128-a885-b1e68bd2d3de)
+
+  ![image](https://github.com/user-attachments/assets/fe17a165-749a-4352-8bfc-edd07482d89a)
+
+  ![image](https://github.com/user-attachments/assets/2b152768-1f56-4e19-95cb-aa8cf25681f7)
 
 
 
-## Licence
 
-DroneKit-Python is made available under the permissive open source
-[Apache 2.0 License](http://python.dronekit.io/about/license.html). 
 
 
 
